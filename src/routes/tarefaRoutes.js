@@ -8,4 +8,14 @@ router.post(
     TarefaController.cadastrar
 );
 
+router.delete(
+    "/remover/:id",
+    TarefaController.remover
+);
+
+router.put(
+    "/atualizar/:id",
+    TarefaController.atualizar
+);
+
 export default router;

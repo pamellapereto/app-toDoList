@@ -1,5 +1,5 @@
 import CategoriaModel from "../model/categoriaModel.js";
-class CategoriaService{
+class CategoriaService {
     static async cadastrar(dados) {
         const {
             etiqueta
@@ -20,18 +20,18 @@ class CategoriaService{
         const {
             etiqueta
         } = dados;
-        if(!etiqueta) {
+        if (!etiqueta) {
             throw new Error("Etiqueta é obrigatória");
         }
 
 
 
-        
+
         const linhaAfetada = await CategoriaModel.atualizar(
             id,
             etiqueta
         );
-        if(linhaAfetada === 0) {
+        if (linhaAfetada === 0) {
             throw new Error("Categoria não encontrada!");
         }
         return {
@@ -43,7 +43,7 @@ class CategoriaService{
         const linhaExcluida = await CategoriaModel.remover(
             id
         );
-        if(linhaExcluida === 0) {
+        if (linhaExcluida === 0) {
             throw new Error("Categoria não encontrada para excluir");
         }
         return {

@@ -1,4 +1,4 @@
-const Input = ({label, type="text", id, placeholder=""}) => {
+const Input = ({ label, type = "text", id, placeholder = "" }) => {
     const campo = document.createElement('div');
     campo.classList.add("campo");
     const labelElemento = document.createElement("label");

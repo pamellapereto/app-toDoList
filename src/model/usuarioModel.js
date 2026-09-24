@@ -21,12 +21,10 @@ class UsuarioModel {
         const [resultado] = await database.execute(
             `UPDATE usuario SET nome = ?, email = ?, senha = ?
             WHERE id = ?`,
-            [nome, email, senha, id]  
+            [nome, email, senha, id]
         );
         return resultado.affectedRows;
     }
-
-
 
     static async remover(id) {
         const [resultado] = await database.execute(

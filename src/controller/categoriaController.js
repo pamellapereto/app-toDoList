@@ -35,7 +35,7 @@ class CategoriaController {
             );
             return res
                 .status(200)
-                .json({mensagem: `A categoria com ID ${requisicao.id} foi excluída com sucesso`});
+                .json({ mensagem: `A categoria com ID ${requisicao.id} foi excluída com sucesso` });
         }
         catch (erro) {
             return res

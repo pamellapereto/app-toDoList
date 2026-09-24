@@ -16,7 +16,7 @@ class UsuarioService {
             nome,
             email,
             senhaCriptografada
-        ); 
+        );
         if (linhaAfetada === 0) {
             throw new Error("Usuário não encontrado!");
         }
@@ -38,4 +38,4 @@ class UsuarioService {
             id
         }
     }
-}   export default UsuarioService;
+} export default UsuarioService;

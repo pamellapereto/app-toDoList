@@ -18,15 +18,6 @@ class UsuarioController {
         }
     }
 
-
-
-
-
-
-
-
-
-
     static async remover(req, res) {
         try {
             const id = req.params.id;
@@ -38,9 +29,9 @@ class UsuarioController {
                 .json({ mensagem: `A conta do usuário com ID ${requisicao.id} foi excluída com sucesso!` });
         }
         catch (erro) {
-            return res 
+            return res
                 .status(400)
-                .json({mensagem: erro.message});
+                .json({ mensagem: erro.message });
         }
     }
 }

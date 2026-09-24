@@ -1,10 +1,10 @@
 import database from "../config/database.js"
-
 class TarefaModel {
-    static async cadastrar(titulo, usuarioId, fluxoId) {
+
+    static async cadastrar(titulo, fluxo, usuarioId) {
         const [resultado] = await database.execute(
             `INSERT INTO tarefa (titulo, fkUsuario, fkFluxo) VALUES (?, ?, ?)`,
-            [titulo, usuarioId, fluxoId]
+            [titulo, usuarioId, fluxo]
         );
         return resultado.insertId;
     }
@@ -14,12 +14,18 @@ class TarefaModel {
             ON tarefa.fkFluxo = fluxo.id WHERE tarefa.id = ? AND tarefa.fkUsuario = ?`,
             [tarefaId, usuarioId]
         );
-        //Se não houver esta tarefa associada a este usuário
         if(!tarefas[0]) {
             return null;
         }
         const tarefa = tarefas[0];
         return tarefa;
+    }
+    static async remover(id) {
+        const [resultado] = await database.execute(
+            `DELETE FROM tarefa WHERE id = ?`,
+            [id]
+        );
+        return resultado.affectedRows
     }
 }
 export default TarefaModel;

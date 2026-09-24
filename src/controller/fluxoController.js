@@ -4,7 +4,7 @@ class FluxoController {
 
     static async cadastrar(req, res) {
         const fluxo = await FluxoService.cadastrar(req.body);
-        
+
         return res
             .status(201)
             .json(fluxo);

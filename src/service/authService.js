@@ -8,7 +8,7 @@ class AuthService {
             senha
         } = dados;
         if (!nome || !email || !senha) {
-            throw new Error("Nome, email e senha são obrigatórios!"); 
+            throw new Error("Nome, email e senha são obrigatórios!");
         }
         const senhaCriptografada = await bcrypt.hash(senha, 10);
         const usuarioId = await UsuarioModel.cadastrar(
@@ -19,21 +19,21 @@ class AuthService {
         const usuario = {
             usuarioId: usuarioId,
             nome,
-            email            
+            email
         }
         return usuario;
     }
 
 
 
-    
+
     static async login(dados) {
         const {
             email,
             senha
         } = dados;
 
-        if(!email || !senha) {
+        if (!email || !senha) {
             throw new Error("E-mail e senha são obrigatórios");
         }
         const usuarioId = await UsuarioModel.login(email);
