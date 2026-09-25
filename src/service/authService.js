@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 import UsuarioModel from '../model/usuarioModel.js';
+import jwt from "jsonwebtoken";
+
 class AuthService {
     static async cadastrar(dados) {
         const {
@@ -25,8 +27,6 @@ class AuthService {
     }
 
 
-
-
     static async login(dados) {
         const {
             email,
@@ -44,12 +44,23 @@ class AuthService {
         if (!senhaCorreta) {
             throw new Error("Senha incorreta!");
         }
+        const token = jwt.sign(
+            {
+                email: usuarioId.email
+            },
+            process.env.JWT_SECRET,
+            {
+                subject: String(usuarioId.id),
+                expiresIn: "2h"
+            }
+        );
         return {
             usuarioId: {
                 id: usuarioId.id,
                 nome: usuarioId.nome,
                 email: usuarioId.email
             },
+            token
         }
     }
 }
