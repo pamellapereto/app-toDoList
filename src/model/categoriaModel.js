@@ -21,5 +21,18 @@ class CategoriaModel {
         );
         return resultado.affectedRows;
     }
+    static async verificarIds(ids, database) {
+        if(ids.length === 0) {
+            return [];
+        }
+        const placeholders = ids.map(() =>
+            "?").join(",");
+        
+        const [categorias] = await database.execute(
+            `SELECT id, etiqueta FROM categoria WHERE id IN (${placeholders})`,
+            ids
+        );
+        return categorias;
+    }
 }
 export default CategoriaModel;

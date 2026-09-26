@@ -29,7 +29,7 @@ class TarefaController {
     static async remover(req, res) {
         try {
             const id = req.params.id;
-            const requisicao = await TarefaService.remover(id);
+            const requisicao = await TarefaService.remover(id, req.usuarioId);
             return res
                 .status(200)
                 .json({ mensagem: `A tarefa com ID ${requisicao.id} foi excluída com sucesso!` });
