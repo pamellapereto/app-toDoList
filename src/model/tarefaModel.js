@@ -25,7 +25,7 @@ class TarefaModel {
         const [resultado] = await database.execute(
             `SELECT categoria.id, categoria.etiqueta FROM categoria
             INNER JOIN tarefa_categoria ON tarefa_categoria.fkCategoria = categoria.id
-            WHERE tarefa_categoria.fkTarefa = ? ORDER BY etiqueta`,
+            WHERE tarefa_categoria.fkTarefa = ? ORDER BY etiqueta ASC`,
             [tarefaId]
         );
         return resultado;
