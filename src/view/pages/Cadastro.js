@@ -1,21 +1,13 @@
 import Input from "../components/Input.js";
+import Button from "../components/Button.js";
+import Login from "./Login.js";
 
 const Cadastro = () => {
     const frame = document.createElement("div");
-    frame.style.display = "flex";
-    frame.style.justifyContent = "center";
-    frame.style.height = "100vh";
-    frame.style.alignItems = "center";
+    frame.classList.add("frame");
 
     const container = document.createElement("div");
     container.classList.add("cadastro-container");
-    container.style.backgroundColor = "#fff";
-    container.style.minHeight = "calc(100vh - 450px)";
-    container.style.width = "calc(100vh - 250px)";
-    container.style.borderRadius = "30px";
-    container.style.display = "flex";
-    container.style.justifyContent = "center";
-    container.style.alignItems = "center";
 
     const form = document.createElement("form");
     form.id = "cadastro-form";
@@ -46,10 +38,24 @@ const Cadastro = () => {
         placeholder: "Digite novamente sua senha"
     });
 
+    const btRegister = Button({
+        label: "Cadastrar",
+        type: "submit"
+    });
+    const btBackLogin = Button({
+        label: "Já tenho conta",
+        onClick: () => {
+            const app = document.querySelector("#app");
+            app.replaceChildren(Login());
+        }
+    });
+
     form.appendChild(inputNome);
     form.appendChild(inputEmail);
     form.appendChild(inputPassword);
     form.appendChild(inputConfirmPassword);
+    form.appendChild(btRegister);
+    form.appendChild(btBackLogin);
     container.appendChild(form);
     frame.appendChild(container);
     return frame;
@@ -71,3 +77,4 @@ const Cadastro = () => {
     }
 }
 export default Cadastro;
+
