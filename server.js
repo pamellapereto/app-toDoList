@@ -9,11 +9,8 @@ import categoriaRoutes from "./src/routes/categoriaRoutes.js";
 const app = express();
 const PORT = process.env.PORT;
 app.use(express.json());
-app.get("/", (req, res) => {
-    res.json({
-        mensagem: "API funcionando!"
-    })
-});
+app.use(express.static("src/view"));
+
 app.use(
     "/autenticacao",      //Anteriormente a rota era: /usuario, trocou para /autenticacao
     authRoutes

@@ -50,6 +50,57 @@ const Cadastro = () => {
         }
     });
 
+    //Envio dos dados para registro
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const nome = form.elements.nome.value.trim();
+        const email = form.elements.email.value.trim();
+
+        const senha = form.elements.senha.value.trim();
+        const confirmarSenha = form.elements["confirmar-senha"].value.trim();
+
+        if (senha !== confirmarSenha) {
+            alert("As senhas não coincidem!");
+            return;
+        }
+        const usuario = {
+            nome,
+            email,
+            senha
+        };
+        try {
+            const resposta = await fetch(
+                "http://localhost:3000/autenticacao/cadastrar",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(usuario)
+                }
+            );
+            const confirmacao = await resposta.json();
+            if (!resposta.ok) {
+                alert(
+                    "Erro ao cadastrar usuário!"
+                );
+                return;
+            }
+            alert("Cadastro realizado com sucesso!");
+            
+            const app = document.querySelector("#app");
+            app.replaceChildren(Login());
+
+            return confirmacao;
+        }
+        catch (erro) {
+            console.error(erro);
+            alert("Erro ao se cadastrar. Servidor indisponível!");
+        }
+    });
+
+
     form.appendChild(inputNome);
     form.appendChild(inputEmail);
     form.appendChild(inputPassword);
@@ -60,21 +111,6 @@ const Cadastro = () => {
     frame.appendChild(container);
     return frame;
 
-    async function enviarDados(valores) {
-        const resposta = await fetch(
-            "http://localhost:3000/cadastrar",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(valores)
-            }
-        );
-        const dados = await resposta.json();
-        console.log(dados);
-        return dados;
-    }
 }
 export default Cadastro;
 
