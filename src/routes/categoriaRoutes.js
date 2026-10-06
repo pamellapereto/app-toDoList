@@ -21,4 +21,9 @@ router.delete(
     CategoriaController.remover
 );
 
+router.get(
+    "/listar",
+    CategoriaController.listar
+);
+
 export default router;
