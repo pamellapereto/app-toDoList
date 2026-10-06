@@ -38,12 +38,6 @@ const Tarefas = () => {
         placeholder: "Digite o título da tarefa"
     });
 
-    const descriptionInput = TextArea({
-        label: "Descrição",
-        id: "descricao",
-        placeholder: "Detalhes da tarefa (opcional)"
-    });
-
     const categorySelect = Select({
         label: "Categoria",
         id: "categoria",
@@ -118,25 +112,26 @@ const Tarefas = () => {
     form.addEventListener("submit", (event) => {
         event.preventDefault();
         const titulo = form.elements.titulo.value.trim();
-        const descricao = form.elements.descricao.value.trim();
         const categoria = form.elements.categoria.value;
         if (!titulo) return;
 
-        tasks.push({
-            id: nextTaskId++,
-            titulo,
-            descricao,
-            categoria,
-            status: "tarefa",
-            criadaEm: new Date().toISOString()
-        });
+        // tasks.push({
+        //     id: nextTaskId++,
+        //     titulo,
+        //     categoria,
+        //     status: "tarefa",
+        //     criadaEm: new Date().toISOString()
+        // });
+        const tarefa = {
+            titulo
+        }
 
         renderTasks();
         form.reset();
         form.elements.titulo.focus();
     });
 
-    form.append(titleInput, descriptionInput, categorySelect, addButton);
+    form.append(titleInput, categorySelect, addButton);
     container.append(title, form, board);
     frame.appendChild(container);
     return frame;

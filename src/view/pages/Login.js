@@ -9,7 +9,7 @@ const Login = () => {
 
     const container = document.createElement("section");
     container.classList.add("login-container");
-    
+
     const form = document.createElement("form");
     form.id = "login-form";
 
@@ -28,10 +28,7 @@ const Login = () => {
 
     const btLogin = Button({
         label: "Entrar",
-        onClick: () => {
-            const app = document.querySelector("#app");
-            app.replaceChildren(Tarefas());
-        }
+        type: "submit"
     });
 
     const btRegister = Button({
@@ -39,6 +36,46 @@ const Login = () => {
         onClick: () => {
             const app = document.querySelector("#app");
             app.replaceChildren(Cadastro());
+        }
+    });
+
+    //método de monitorar a interação do usuário com o formulário (addEventListener())
+    form.addEventListener("submit", async (e) => {
+        //Obter o valor dos inputs e mandar para a API ("http://localhost:3000/autenticacao/login")
+        //Envio dos dados para registro
+        e.preventDefault();
+        const email = form.elements.email.value.trim();
+        const senha = form.elements.senha.value.trim();
+        const usuario = {
+            email,
+            senha
+        };
+        try {
+            const resposta = await fetch(
+                "http://localhost:3000/autenticacao/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(usuario)
+                }
+            );
+            const confirmacao = await resposta.json();
+            if (!resposta.ok) {
+                alert(
+                    "Erro ao logar!"
+                );
+                return;
+            }
+            alert("Login realizado com sucesso!");
+            const app = document.querySelector("#app");
+            app.replaceChildren(Tarefas());
+            return confirmacao;
+        }
+        catch (erro) {
+            console.error(erro);
+            alert("Erro ao logar!");
         }
     });
 

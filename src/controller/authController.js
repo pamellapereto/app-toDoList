@@ -9,10 +9,10 @@ class AuthController {
                 .status(201)
                 .json(requisicao);
         }
-        catch(erro) {
+        catch (erro) {
             return res
                 .status(400)
-                .json({mensagem: erro.message});
+                .json({ mensagem: erro.message });
         }
     }
 
@@ -20,10 +20,17 @@ class AuthController {
     /* ------------------------------------------------ */
     static async login(req, res) {
         const requisicao = await AuthService.login(req.body);
-
-        return res
-            .status(200)
-            .json(requisicao)
+        try {
+            return res
+                .status(200)
+                .json(requisicao)
+            }
+            catch (erro) {
+                return res
+                .status(400)
+                .json({ mensagem: erro.message });
+            }         
     }
+    
 }
 export default AuthController;
