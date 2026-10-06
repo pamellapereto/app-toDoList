@@ -24,9 +24,6 @@ class CategoriaService {
             throw new Error("Etiqueta é obrigatória");
         }
 
-
-
-
         const linhaAfetada = await CategoriaModel.atualizar(
             id,
             etiqueta
@@ -49,6 +46,9 @@ class CategoriaService {
         return {
             id
         }
+    }
+    static async listar() {
+        return await CategoriaModel.listar();
     }
 }
 export default CategoriaService;

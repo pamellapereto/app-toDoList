@@ -26,7 +26,6 @@ class CategoriaController {
         }
     }
 
-
     static async remover(req, res) {
         try {
             const id = req.params.id;
@@ -36,6 +35,20 @@ class CategoriaController {
             return res
                 .status(200)
                 .json({ mensagem: `A categoria com ID ${requisicao.id} foi excluída com sucesso` });
+        }
+        catch (erro) {
+            return res
+                .status(400)
+                .json({ mensagem: erro.message });
+        }
+    }
+
+    static async listar(req, res) {
+        try {
+            const requisicao = await CategoriaService.listar();
+            return res
+                .status(200)
+                .json(requisicao);
         }
         catch (erro) {
             return res

@@ -16,7 +16,7 @@ function authMiddleware(req, res, next) {
     try {
         const dadosToken = jwt.verify(
             token,
-            process.env.JWT_TOKEN
+            process.env.JWT_SECRET
         );
         req.usuarioId = Number(dadosToken.sub);
         next();

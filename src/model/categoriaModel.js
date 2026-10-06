@@ -34,5 +34,22 @@ class CategoriaModel {
         );
         return categorias;
     }
+    static async buscarPorId(id) {
+        //Nesse método não está sendo verificando
+        // as categorias existentes, só está
+        // buscando uma em específico
+        const [resultado] = await database.
+        execute(`SELECT id, etiqueta FROM 
+            categoria WHERE id = ?`,
+            [id]
+        );
+        return resultado[0];
+    }
+    static async listar() {
+        const [resultado] = await database.
+        execute(`SELECT id, etiqueta FROM 
+            categoria ORDER BY etiqueta`);
+        return resultado;
+    }
 }
 export default CategoriaModel;

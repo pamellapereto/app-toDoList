@@ -68,6 +68,14 @@ const Login = () => {
                 );
                 return;
             }
+            localStorage.setItem(
+                "chave-token",            //key do localStorage
+                confirmacao.token        //Valor do token a ser armazenado (sequencia de caracteres aleatoria)
+            );
+            localStorage.setItem(
+                "chave-infos-usuario",
+                JSON.stringify(confirmacao.usuarioId)
+            );
             alert("Login realizado com sucesso!");
             const app = document.querySelector("#app");
             app.replaceChildren(Tarefas());
