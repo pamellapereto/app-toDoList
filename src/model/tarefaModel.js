@@ -17,13 +17,32 @@ class TarefaModel {
             WHERE tarefa.id = ? AND tarefa.fkUsuario = ?`,
             [tarefaId, usuarioId]
         );
-        if(!tarefas[0]) {
+        if (!tarefas[0]) {
             return null;
         }
         const tarefa = tarefas[0];
         return tarefa;
     }
-    
+
+    static async listarTodasTarefasPorIdUsuario(usuarioId) {
+        const [tarefas] = await database.execute(
+            `SELECT tarefa.titulo, tarefa.dataAtualizada, fluxo.nome, categoria.etiqueta
+            from tarefa INNER JOIN fluxo 
+            ON tarefa.fkFluxo = fluxo.id INNER JOIN tarefa_categoria ON tarefa_categoria.fkTarefa = tarefa.id
+            INNER JOIN categoria ON tarefa_categoria.fkCategoria = categoria.id
+            WHERE tarefa.fkUsuario = ?`,
+            [usuarioId]
+        );
+        return tarefas;
+    }
+
+    static async adicionarCategoriaEmUmaTarefa(tarefaId, categoriaId) {
+        await database.execute(`INSERT INTO tarefa_categoria (fkTarefa, fkCategoria) VALUES (?, ?)`,
+            [tarefaId, categoriaId]
+        );
+    }
+    //Ficou faltando: atualizar uma tarefa em específico (como seu título) e substituir uma categoria por outra
+
     static async atualizarFluxo(tarefaId, usuarioId, fluxo) {
         const [resultado] = await database.execute(
             `UPDATE tarefa SET fkFluxo = ? WHERE id = ? AND fkUsuario = ?`,

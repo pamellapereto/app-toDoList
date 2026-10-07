@@ -115,13 +115,13 @@ const Tarefas = () => {
         const categoria = form.elements.categoria.value;
         if (!titulo) return;
 
-        // tasks.push({
-        //     id: nextTaskId++,
-        //     titulo,
-        //     categoria,
-        //     status: "tarefa",
-        //     criadaEm: new Date().toISOString()
-        // });
+        tasks.push({
+            id: nextTaskId++,
+            titulo,
+            categoria,
+            status: "tarefa",
+            criadaEm: new Date().toISOString()
+        });
         const tarefa = {
             titulo
         }
